@@ -1,11 +1,8 @@
 require('dotenv').config()
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose')
 const cors = require('cors'); // Import cors
-const authMiddleware = require('./authMiddleware');
-const connectDB = require('./db');
+const connectDB = require('./config/db');
 const express = require('express')
+const morgan = require('morgan');
 
 const app = express()
 
@@ -14,6 +11,7 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
 const userRouter = require('./routes/user')
 app.use('/', userRouter)
